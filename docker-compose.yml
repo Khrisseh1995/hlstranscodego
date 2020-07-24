@@ -1,0 +1,9 @@
+version: "3"
+
+services:
+  server:
+    build: ./server
+    # volumes:
+    #   - "./server:/app"
+    ports:
+      - 7010:8080
