@@ -67,9 +67,9 @@ func ReplaceSubPlaylistWithFullURLs(
 		if strings.Contains(stream, mediaFileExtension) {
 			//File directories may look like ../../file so need to parse this and pop the corresponding amount off the base
 			//Not sure how stable this is tho...
-			re := regexp.MustCompile(`../`)
-			backFileMatches := re.FindAll([]byte(stream), -1)
-
+			re := regexp.MustCompile(regexp.QuoteMeta("../")) //Escape special chars ^.^
+			fmt.Println(stream)
+			backFileMatches := re.FindAllString(stream, -1)
 			//If the array is not empty, we will need to pop the corresponding amount of '../' off the full URL
 			// '../' denotes going back a file if you didn't already know...
 			var fileBackCount int
@@ -79,7 +79,8 @@ func ReplaceSubPlaylistWithFullURLs(
 				fileBackCount = 0
 			}
 
-			fmt.Println(fileBackCount)
+			fmt.Println("Back file matches: ", backFileMatches)
+			fmt.Println("File back count: ", fileBackCount)
 
 		}
 		return "s"
