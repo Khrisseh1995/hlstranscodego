@@ -5,6 +5,8 @@ import (
 	"log"
 	"net/http"
 	"rest_api/service"
+	util "rest_api/util/arrayutil"
+	"strings"
 )
 
 //RegisterControllers is a method that will register the available controller endpoints with the application
@@ -50,6 +52,17 @@ func RegisterControllers() {
 			fmt.Println("Format: ", format)
 			fmt.Println("Subplaylist URL", subPlaylistURL)
 		}
+
+		fmt.Fprintf(w, "Return dynamic playlist")
+	})
+
+	http.HandleFunc("/test_filter", func(w http.ResponseWriter, r *http.Request) {
+		fmt.Println("GET params were:", r.URL.Query())
+		stringArr := []string{"test", "testing", "lmao"}
+		filteredString := util.StringFilter(stringArr, func(s string) bool {
+			return strings.Contains(s, "test")
+		})
+		fmt.Println(filteredString)
 
 		fmt.Fprintf(w, "Return dynamic playlist")
 	})

@@ -35,19 +35,12 @@ func (vr videoReplacer) replace(manifestSlice []string, rp replaceParams) {
 //FetchReplacer returns a different instance of replacer depending on the piece of metadata that is passed to it
 // EXT-X-STREAM-INF denotes a video playlist, #EXT-X-MEDIA:TYPE=AUDIO denotes an audio playlist
 func FetchReplacer(manifestSlice string) (Replacer, error) {
-	//Better ways of doing this than if statement, refactor at some point
-	if !strings.Contains(manifestSlice, "#EXT-X-STREAM-INF") && !strings.Contains(manifestSlice, "#EXT-X-MEDIA:TYPE=AUDIO") {
+	switch manifestSliceToCheck := manifestSlice; {
+	case strings.Contains(manifestSliceToCheck, "#EXT-X-STREAM-INF"):
+		return videoReplacer{}, nil
+	case strings.Contains(manifestSliceToCheck, "#EXT-X-MEDIA:TYPE=AUDIO"):
+		return audioReplacer{}, nil
+	default:
 		return nil, errors.New("Cannot find valid replacer type")
 	}
-
-	if strings.Contains(manifestSlice, "#EXT-X-STREAM-INF") {
-		return videoReplacer{}, nil
-	}
-
-	if strings.Contains(manifestSlice, "#EXT-X-MEDIA:TYPE=AUDIO") {
-		return audioReplacer{}, nil
-	}
-
-	return nil, errors.New("Cannot find valid replacer type")
-
 }
