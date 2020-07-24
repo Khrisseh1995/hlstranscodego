@@ -15,5 +15,7 @@ func FetchValueFromManifestMetadata(manifestChunk string, matchValue string) str
 
 	_, value := util.DestructureKeyValuePair(filteredString, "=")
 
+	value = strings.Trim(value, "\"")
+
 	return value
 }
