@@ -68,27 +68,26 @@ func ReplaceSubPlaylistWithFullURLs(
 			//File directories may look like ../../file so need to parse this and pop the corresponding amount off the base
 			//Not sure how stable this is tho...
 			re := regexp.MustCompile(regexp.QuoteMeta("../")) //Escape special chars ^.^
-			fmt.Println(stream)
 			backFileMatches := re.FindAllString(stream, -1)
 			//If the array is not empty, we will need to pop the corresponding amount of '../' off the full URL
 			// '../' denotes going back a file if you didn't already know...
 			var fileBackCount int
 			if len(backFileMatches) > 0 {
 				fileBackCount = len(backFileMatches)
-			} else {
-				fileBackCount = 0
+				splitAudioStream := strings.Split(stream, "/")
+				slicedStream := splitAudioStream[len(backFileMatches):len(splitAudioStream)]
+				stream = strings.Join(slicedStream, "/")
 			}
 
-			fmt.Println("Back file matches: ", backFileMatches)
-			fmt.Println("File back count: ", fileBackCount)
-
+			baseURLArray := strings.Split(baseURL, "/")
+			slicedBaseURL := baseURLArray[0 : len(baseURLArray)-fileBackCount]
+			return fmt.Sprintf("%s/%s", strings.Join(slicedBaseURL, "/"), stream)
 		}
-		return "s"
+		return stream
 	})
-
-	fmt.Println(replacedManifestStreams)
-
-	return "Success!", nil
+	fmt.Println(strings.Join(replacedManifestStreams, "\n"))
+	return strings.Join(replacedManifestStreams, "\n"), nil
+	// return "Success!", nil
 }
 
 func getManifestFromResponse(playlistURL string) (string, error) {
