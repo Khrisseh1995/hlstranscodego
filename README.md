@@ -1,6 +1,7 @@
 # Serverside HLS Ad Insertion using Golang
 This service will (hopefully) achieve serverside ad insertion in HLS Vod Streams
 
+The full panthos 23 spec can be found [here](https://tools.ietf.org/html/draft-pantos-http-live-streaming-23)
 ## List of example playlists
 
 I'm currently using playlists from BitMovin hosted [here](https://bitmovin.com/mpeg-dash-hls-examples-sample-streams/) as I currently only have working implementations for video and audio, the best examples to use are:
