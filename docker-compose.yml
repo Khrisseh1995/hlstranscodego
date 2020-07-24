@@ -2,9 +2,9 @@ version: "3"
 
 services:
   server:
-    build: ./server
+    build: .
     tty: true
     volumes:
-      - "./server:/app"
+      - "./:/app"
     ports:
       - 7010:8080

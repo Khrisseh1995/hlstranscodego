@@ -1,4 +1,4 @@
-package main
+package controller
 
 import (
 	"fmt"
@@ -6,8 +6,9 @@ import (
 	"net/http"
 )
 
-func main() {
-
+//RegisterControllers is a method that will register the available controller endpoints with the application
+//Whether this is the best way to do controllers... idk man I started learning Go 2 days ago
+func RegisterControllers() {
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "Fallback")
 	})
@@ -51,5 +52,4 @@ func main() {
 
 	fmt.Println("Listening on port 8080 Container Port 7010 Host")
 	log.Fatal(http.ListenAndServe(":8080", nil))
-
 }
