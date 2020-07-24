@@ -24,14 +24,24 @@ type audioReplacer struct{}
 
 //Slice passed in so pointer value no need to be explicit
 func (ar audioReplacer) replace(manifestSlice []string, rp replaceParams) {
+	originalURIValue := util.FetchValueFromManifestMetadata(manifestSlice[rp.index], "URI=")
+	audioTagEndpoint := fmt.Sprintf("http://localhost:7003/generate_dynamic_playlist?subPlaylistUrl=%s/%s&format=audio", rp.baseURL, originalURIValue)
+	//Make endpoint environment variable for different dev/live endpoints
+	replacedAudioTag := strings.Replace(
+		manifestSlice[rp.index],
+		originalURIValue,
+		audioTagEndpoint,
+		-1,
+	)
 
-	util.FetchValueFromManifestMetadata(manifestSlice[rp.index], "URI=")
-	fmt.Println("Audio replacer")
+	manifestSlice[rp.index] = replacedAudioTag
+
 }
 
 //Slice passed in so pointer value
 func (vr videoReplacer) replace(manifestSlice []string, rp replaceParams) {
 	subPlaylist := manifestSlice[rp.index+1]
+	//Make endpoint environment variable for different dev/live endpoints
 	manifestSlice[rp.index+1] = fmt.Sprintf(`http://localhost:7003/generate_dynamic_playlist?subPlaylistUrl=%s/%s&format=video`, rp.baseURL, subPlaylist)
 }
 
