@@ -36,10 +36,14 @@ func ReplacePlaylistWithServerEndpoints(playlistURL string, baseURL string) (str
 
 	manifest = strings.Join(manifestSlice, "\n")
 
-	// fmt.Println(manifestSlice)
-
 	return manifest, nil
+}
 
+//ReplaceSubPlaylistWithFullURLs due to files now being served from a different origin, the full URL will now have to be
+//spliced into the manifest in order to know the location of the TS files
+func ReplaceSubPlaylistWithFullURLs(streamData string, format string, baseURL string) {
+	//Canny assumption, the files could be aac, fmp4, or other types of format; this will need to change
+	const mediaFileExtension = ".ts"
 }
 
 func getManifestFromResponse(playlistURL string) (string, error) {
