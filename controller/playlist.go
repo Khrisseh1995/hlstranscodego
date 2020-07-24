@@ -31,7 +31,10 @@ func RegisterControllers() {
 				fmt.Println(err)
 			}
 			fmt.Fprintf(w, manifest)
+			return
 		}
+
+		fmt.Fprintf(w, "Incorrect parameters supplied")
 
 	})
 
@@ -45,13 +48,16 @@ func RegisterControllers() {
 		//URL of the actual bitrate file that will be played
 		subPlaylistURL := r.URL.Query().Get("subPlaylistURL")
 		if format != "" && subPlaylistURL != "" {
-			fmt.Println("Both parameters are defined")
-			fmt.Println("Format: ", format)
-			fmt.Println("Subplaylist URL", subPlaylistURL)
-			service.ReplaceSubPlaylistWithFullURLs(subPlaylistURL, format, "https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s")
+			manifest, err := service.ReplaceSubPlaylistWithFullURLs(subPlaylistURL, format, "https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s")
+			if err != nil {
+				fmt.Println(err)
+			}
+			fmt.Fprintf(w, manifest)
+			return
 		}
 
-		fmt.Fprintf(w, "Return dynamic playlist")
+		fmt.Fprintf(w, "Incorrect parameters supplied")
+
 	})
 
 	fmt.Println("Listening on port 8080 Container Port 7010 Host")
