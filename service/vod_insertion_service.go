@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	"reflect"
 	"strings"
 )
 
@@ -12,9 +11,6 @@ import (
  *input and replace each subplaylist with an endpoint to be called by the browser
  */
 func ReplacePlaylistWithServerEndpoints(playlistURL string, baseURL string) (string, error) {
-
-	const videoStreamRegex = "#EXT-X-STREAM-INF"
-	const audioStreamRegex = "#EXT-X-MEDIA:TYPE=AUDIO"
 
 	manifest, err := getManifestFromResponse(playlistURL)
 
@@ -27,20 +23,19 @@ func ReplacePlaylistWithServerEndpoints(playlistURL string, baseURL string) (str
 	for index, manifestChunk := range manifestSlice {
 
 		rp := replaceParams{
-			manifestSlice: manifestSlice,
-			baseURL:       baseURL,
-			index:         index,
+			baseURL: baseURL,
+			index:   index,
 		}
 
 		replacer, err := FetchReplacer(manifestChunk)
-
-		if err != nil {
-			replacer.replace(rp)
+		if err == nil {
+			fmt.Println(replacer)
+			replacer.replace(manifestSlice, rp)
 		}
-
 	}
 
-	fmt.Println(reflect.TypeOf(manifestSlice))
+	manifest = strings.Join(manifestSlice, "\n")
+
 	// fmt.Println(manifestSlice)
 
 	return manifest, nil
