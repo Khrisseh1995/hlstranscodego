@@ -28,11 +28,11 @@ func RegisterControllers() {
 			fmt.Println("Both parameters are defined")
 			fmt.Println("Master Playlist: ", masterPlaylist)
 			fmt.Println("baseURL: ", baseURL)
-			manifest, err := service.ReplacePlaylistWithServerEndpoints(masterPlaylist, baseURL)
-			if err != nil {
-				fmt.Println(err)
-			}
-			fmt.Println("Manifest is: ", manifest)
+			service.ReplacePlaylistWithServerEndpoints(masterPlaylist, baseURL)
+			// if err != nil {
+			// 	fmt.Println(err)
+			// }
+			// fmt.Println("Manifest is: ", manifest)
 		}
 
 		fmt.Fprintf(w, "Return master playlist")
