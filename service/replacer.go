@@ -3,6 +3,7 @@ package service
 import (
 	"errors"
 	"fmt"
+	util "rest_api/util/playlistutil"
 	"strings"
 )
 
@@ -23,6 +24,8 @@ type audioReplacer struct{}
 
 //Slice passed in so pointer value no need to be explicit
 func (ar audioReplacer) replace(manifestSlice []string, rp replaceParams) {
+
+	util.FetchValueFromManifestMetadata(manifestSlice[rp.index], "URI=")
 	fmt.Println("Audio replacer")
 }
 
