@@ -2,6 +2,8 @@ package service
 
 import (
 	"errors"
+	"fmt"
+	"net/http"
 )
 
 //These probably don't belong here? Maybe a models folder or something
@@ -35,6 +37,13 @@ func fetchReplacer(fileExtension string) (replacer, error) {
 /*ReplacePlaylistWithServerEndpoints is a method that will take in a master playlist as i
  *input and replace each subplaylist with an endpoint to be called by the browser
  */
-func ReplacePlaylistWithServerEndpoints(manifest string, baseURL string) {
+func ReplacePlaylistWithServerEndpoints(playlistURL string, baseURL string) {
+	manifest, err := http.Get(playlistURL)
+	if err != nil {
+		fmt.Println("Playlist could not be found")
+		return
+	}
+
+	fmt.Println(manifest)
 	//Impl
 }
