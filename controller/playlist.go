@@ -48,6 +48,7 @@ func RegisterControllers() {
 			fmt.Println("Both parameters are defined")
 			fmt.Println("Format: ", format)
 			fmt.Println("Subplaylist URL", subPlaylistURL)
+			service.ReplaceSubPlaylistWithFullURLs(subPlaylistURL, format, "https://bitdash-a.akamaihd.net/content/MI201109210084_1/m3u8s")
 		}
 
 		fmt.Fprintf(w, "Return dynamic playlist")
