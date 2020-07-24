@@ -5,7 +5,6 @@ import (
 	"io/ioutil"
 	"net/http"
 	"reflect"
-	"regexp"
 	"strings"
 )
 
@@ -25,19 +24,20 @@ func ReplacePlaylistWithServerEndpoints(playlistURL string, baseURL string) (str
 
 	manifestSlice := strings.Split(manifest, "\n")
 
-	for _, manifestChunk := range manifestSlice {
-		videoRegexMatched, err := regexp.Match(videoStreamRegex, []byte(manifestChunk))
-		if err != nil {
-			fmt.Println("Video regex error: ", err)
+	for index, manifestChunk := range manifestSlice {
+
+		rp := replaceParams{
+			manifestSlice: manifestSlice,
+			baseURL:       baseURL,
+			index:         index,
 		}
 
-		fmt.Println("Video Regex Matched: ", videoRegexMatched)
-		audioRegexMatched, err := regexp.Match(audioStreamRegex, []byte(manifestChunk))
+		replacer, err := FetchReplacer(manifestChunk)
+
 		if err != nil {
-			fmt.Println("Audio regex error: ", err)
+			replacer.replace(rp)
 		}
-		fmt.Println("Audio Regex Matched: ", audioRegexMatched)
-		fmt.Println(manifestChunk)
+
 	}
 
 	fmt.Println(reflect.TypeOf(manifestSlice))

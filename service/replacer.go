@@ -12,10 +12,9 @@ type Replacer interface {
 }
 
 type replaceParams struct {
-	manifestChunks []string
-	baseURL        string
-	subPlaylist    string
-	index          int
+	manifestSlice []string
+	baseURL       string
+	index         int
 }
 
 type videoReplacer struct{}
@@ -29,8 +28,8 @@ func (ar audioReplacer) replace(rp replaceParams) {
 
 //Slice passed in so pointer value
 func (vr videoReplacer) replace(rp replaceParams) {
-	subPlaylist := rp.manifestChunks[rp.index+1]
-	rp.manifestChunks[rp.index+1] = fmt.Sprintf(`http://localhost:7003/generate_dynamic_playlist?subPlaylistUrl=%s/%s&format=video`, rp.baseURL, subPlaylist)
+	subPlaylist := rp.manifestSlice[rp.index+1]
+	rp.manifestSlice[rp.index+1] = fmt.Sprintf(`http://localhost:7003/generate_dynamic_playlist?subPlaylistUrl=%s/%s&format=video`, rp.baseURL, subPlaylist)
 	//Impl
 }
 
