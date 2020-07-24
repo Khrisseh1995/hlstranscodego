@@ -24,18 +24,16 @@ func RegisterControllers() {
 		masterPlaylist := r.URL.Query().Get("masterPlaylist")
 		//Base url to append to TS files, should be able to work this out programatically
 		baseURL := r.URL.Query().Get("baseUrl")
+
 		if masterPlaylist != "" && baseURL != "" {
-			fmt.Println("Both parameters are defined")
-			fmt.Println("Master Playlist: ", masterPlaylist)
-			fmt.Println("baseURL: ", baseURL)
 			manifest, err := service.ReplacePlaylistWithServerEndpoints(masterPlaylist, baseURL)
 			if err != nil {
 				fmt.Println(err)
 			}
 			fmt.Println("Manifest is: ", manifest)
+			fmt.Fprintf(w, manifest)
 		}
 
-		fmt.Fprintf(w, "Return master playlist")
 	})
 
 	/**

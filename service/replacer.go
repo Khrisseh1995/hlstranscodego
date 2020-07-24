@@ -28,14 +28,8 @@ func (ar audioReplacer) replace(manifestSlice []string, rp replaceParams) {
 
 //Slice passed in so pointer value
 func (vr videoReplacer) replace(manifestSlice []string, rp replaceParams) {
-	fmt.Println("Index: ", rp.index)
 	subPlaylist := manifestSlice[rp.index+1]
-	fmt.Println(subPlaylist)
 	manifestSlice[rp.index+1] = fmt.Sprintf(`http://localhost:7003/generate_dynamic_playlist?subPlaylistUrl=%s/%s&format=video`, rp.baseURL, subPlaylist)
-	// if err != nil {
-	// fmt.Println()
-	// }
-	fmt.Println("Video Player")
 }
 
 //FetchReplacer returns a different instance of replacer depending on the piece of metadata that is passed to it
