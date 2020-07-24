@@ -13,6 +13,7 @@ func main() {
 	})
 
 	http.HandleFunc("/test", func(w http.ResponseWriter, r *http.Request) {
+
 		fmt.Fprintf(w, "test")
 	})
 
