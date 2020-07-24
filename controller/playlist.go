@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"rest_api/service"
 )
 
 //RegisterControllers is a method that will register the available controller endpoints with the application
@@ -27,6 +28,11 @@ func RegisterControllers() {
 			fmt.Println("Both parameters are defined")
 			fmt.Println("Master Playlist: ", masterPlaylist)
 			fmt.Println("baseURL: ", baseURL)
+			manifest, err := service.ReplacePlaylistWithServerEndpoints(masterPlaylist, baseURL)
+			if err != nil {
+				fmt.Println(err)
+			}
+			fmt.Println("Manifest is: ", manifest)
 		}
 
 		fmt.Fprintf(w, "Return master playlist")
