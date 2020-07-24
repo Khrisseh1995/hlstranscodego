@@ -30,6 +30,7 @@ func RegisterControllers() {
 			if err != nil {
 				fmt.Println(err)
 			}
+			w.Header().Set("Content-type", "application/x-mpegURL")
 			fmt.Fprintf(w, manifest)
 			return
 		}
@@ -52,10 +53,10 @@ func RegisterControllers() {
 			if err != nil {
 				fmt.Println(err)
 			}
+			w.Header().Set("Content-type", "application/x-mpegURL")
 			fmt.Fprintf(w, manifest)
 			return
 		}
-
 		fmt.Fprintf(w, "Incorrect parameters supplied")
 
 	})

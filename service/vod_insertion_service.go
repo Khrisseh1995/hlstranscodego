@@ -87,7 +87,6 @@ func ReplaceSubPlaylistWithFullURLs(
 	})
 	fmt.Println(strings.Join(replacedManifestStreams, "\n"))
 	return strings.Join(replacedManifestStreams, "\n"), nil
-	// return "Success!", nil
 }
 
 func getManifestFromResponse(playlistURL string) (string, error) {
