@@ -75,7 +75,7 @@ func ReplaceSubPlaylistWithFullURLs(
 			if len(backFileMatches) > 0 {
 				fileBackCount = len(backFileMatches)
 				splitAudioStream := strings.Split(stream, "/")
-				slicedStream := splitAudioStream[len(backFileMatches):len(splitAudioStream)]
+				slicedStream := splitAudioStream[fileBackCount:len(splitAudioStream)]
 				stream = strings.Join(slicedStream, "/")
 			}
 
