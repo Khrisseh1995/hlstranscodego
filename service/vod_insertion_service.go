@@ -85,8 +85,29 @@ func ReplaceSubPlaylistWithFullURLs(
 		}
 		return stream
 	})
-	fmt.Println(strings.Join(replacedManifestStreams, "\n"))
-	return strings.Join(replacedManifestStreams, "\n"), nil
+	firstStreamIndex := util.FindIndex(replacedManifestStreams, func(stream string) bool {
+		return stream == "EXTINF"
+	})
+
+	manifestMetadata := make([]string, firstStreamIndex)
+	manifestStream := make([]string, len(replacedManifestStreams)-firstStreamIndex)
+
+	copy(manifestMetadata, replacedManifestStreams[0:firstStreamIndex])
+	copy(manifestStream, replacedManifestStreams[firstStreamIndex:len(replacedManifestStreams)])
+	addToSplice := []string{
+		"#EXT-X-DISCONTINUITY",
+		"https://hboremixbucket.s3.amazonaws.com/ads/ad_${format}.ts",
+		"#EXTINF:10.0",
+	}
+
+	joinedArray := append(manifestMetadata, addToSplice...)
+	joinedArray = append(joinedArray, manifestStream...)
+
+	// const firstStreamInstance = replacedManifestStream.findIndex(stream => stream.includes("#EXTINF"));
+	// fmt.Println(strings.Join(replacedManifestStreams, "\n"))
+	// return strings.Join(replacedManifestStreams, "\n"), nil
+	fmt.Println(strings.Join(joinedArray, "\n"))
+	return strings.Join(joinedArray, "\n"), nil
 }
 
 func getManifestFromResponse(playlistURL string) (string, error) {

@@ -29,3 +29,13 @@ func DestructureKeyValuePair(stringToSplit string, separator string) (string, st
 	x := strings.Split(stringToSplit, separator)
 	return x[0], x[1]
 }
+
+//FindIndex is
+func FindIndex(ss []string, test func(string) bool) int {
+	for index, s := range ss {
+		if test(s) {
+			return index
+		}
+	}
+	return -1
+}
