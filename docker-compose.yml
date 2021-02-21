@@ -5,6 +5,6 @@ services:
     build: .
     tty: true
     volumes:
-      - "./:/app/rest_api/src"
+      - "./:/app/ad_insertion/src"
     ports:
       - 8080:8080

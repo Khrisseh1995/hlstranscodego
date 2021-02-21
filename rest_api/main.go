@@ -1,6 +1,6 @@
 package main
 
-import "rest_api/controller"
+import "ad_insertion/controller"
 
 func main() {
 	controller.RegisterControllers()

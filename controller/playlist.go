@@ -1,10 +1,10 @@
 package controller
 
 import (
+	"ad_insertion/service"
 	"fmt"
 	"log"
 	"net/http"
-	"rest_api/service"
 )
 
 //RegisterControllers is a method that will register the available controller endpoints with the application

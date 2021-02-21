@@ -1,7 +1,7 @@
 package util
 
 import (
-	util "rest_api/util/arrayutil"
+	util "ad_insertion/util/arrayutil"
 	"strings"
 )
 

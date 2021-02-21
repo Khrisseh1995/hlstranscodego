@@ -1,9 +1,9 @@
 package service
 
 import (
+	util "ad_insertion/util/playlistutil"
 	"errors"
 	"fmt"
-	util "rest_api/util/playlistutil"
 	"strings"
 )
 

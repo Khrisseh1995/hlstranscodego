@@ -1,11 +1,11 @@
 package service
 
 import (
+	util "ad_insertion/util/arrayutil"
 	"fmt"
 	"io/ioutil"
 	"net/http"
 	"regexp"
-	util "rest_api/util/arrayutil"
 	"strings"
 )
 
