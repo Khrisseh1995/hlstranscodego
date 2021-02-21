@@ -7,4 +7,4 @@ services:
     volumes:
       - "./:/app/rest_api/src"
     ports:
-      - 7010:8080
+      - 8080:8080
