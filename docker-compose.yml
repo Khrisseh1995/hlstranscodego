@@ -5,6 +5,6 @@ services:
     build: .
     tty: true
     volumes:
-      - "./:/app"
+      - "./:/app/rest_api/src"
     ports:
       - 7010:8080

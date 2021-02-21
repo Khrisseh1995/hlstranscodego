@@ -10,4 +10,6 @@ WORKDIR /app/src/rest_api
 
 RUN go build -o main .
 
-CMD ["./main"]
+# RUN ls
+
+# CMD ["./main"]
